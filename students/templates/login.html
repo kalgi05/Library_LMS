@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Student Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <script src="https://cdn.rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-lugx-gaming.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+
+  </head>
+
+
+<body>
+  {% load static %}
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="/" class="logo">
+                      <img src="{% static '/assets/images/logo.png' %}" alt="" style="width: 158px;">
+                  </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                      <li> <a href="{% url 'Home' %}" > Home</a></li>
+                      <li><a href=" {% url 'Books' %} " class="active">Our Books</a></li>
+                      <li><a href=" {% url 'product-details' %} ">Book Details</a></li>
+                      <li><a href=" {% url 'Contact' %} ">Contact Us</a></li>
+                      <li><a href=" {% url 'Login' %} ">Sign In</a></li>
+                  </ul>   
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="page-heading header-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3>Student Login</h3>
+          <span class="breadcrumb"><a href="#">Student</a>  >  Login</span>
+          <div class="main-button">
+            <a href="librarian/">Librarian</a>
+            <a href=" {% url 'Register' %} ">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-page section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="right-content">
+            <div class="row">
+              <div class="col-lg-12">
+                <form id="contact-form" action="login" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <input type="text" name="enrollment" id="enrollment" placeholder="Your Enrollment " autocomplete="on" required>
+                      </fieldset>
+                    </div>
+                    <!-- <div class="col-lg-6">
+                      <fieldset>
+                        <input type="surname" name="surname" id="surname" placeholder="Your Surname..." autocomplete="on" required>
+                      </fieldset>
+                    </div> -->
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Registred E-mail" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <input type="password" name="password" id="password" placeholder="Enter Your Password" required >
+                      </fieldset>
+                    </div>
+                    
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <button type="submit" id="form-submit" class="orange-button">Login</button>
+                      </fieldset>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <video id="qr-video" width="100%" height="100%" playsinline></video>
+          <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+          <script>
+              const video = document.getElementById('qr-video');
+              const scanner = new Instascan.Scanner({ video });
+      
+              scanner.addListener('scan', content => {
+                  document.getElementById("enrollment").value = content;
+                  // alert(`Scanned QR code with content: ${content}`);
+                  // document.getElementById('contact-form').submit();
+                  // You can add additional logic here, like sending the content to the server.
+              });
+      
+              Instascan.Camera.getCameras().then(cameras => {
+                  if (cameras.length > 0) {
+                      scanner.start(cameras[0]);
+                  } else {
+                      console.error('No cameras found.');
+                  }
+              }).catch(err => console.error(err));
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>  
+  
+  <!-- <script>
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        document.getElementById('id_data').value = content;
+    });
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+</script> -->
+  <footer>
+    <div class="container">
+      <div class="col-lg-12">
+        <p>Copyright © 2024 Team-20 All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="#" ></a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/isotope.min.js' %}"></script>
+  <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+  <script src="{% static 'assets/js/counter.js' %}"></script>
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+  </body>
+</html>
