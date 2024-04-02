@@ -75,12 +75,12 @@ def Register(request):
             embed_QR(url, name)
             with open(name, "rb") as image_file:
                 image_data = base64.b64encode(image_file.read()).decode('utf-8')
-            #return render(request, 'register.html', {'registerForm' : reg, 'QR': image_data, 'details': url })
+            return render(request, 'register.html', {'registerForm' : reg, 'QR': image_data, 'details': url })
         else:
             print('Not working')
-       # url = print(request.POST['enrollment'])
+        #url = print(request.POST['enrollment'])
         
-        return render(request, 'register.html', {'registerForm' : reg, 'QR': image_data, 'details': url })
+        return render(request, 'register.html', {'registerForm' : reg})
     else:
         return render(request, 'register.html', {'registerForm' : reg})
 
